@@ -1,0 +1,39 @@
+body {
+    font-family: AllegraMedium,sans-serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.mainForm{
+    display: flex;
+    justify-content: center;
+}
+
+.flexContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 90px;
+    width: 30%;
+}
+
+.flexContainer > * {
+    align-self: left;
+    margin: 20px;
+}
+
+input {
+    width: 190px;
+}
+
+.button {
+    width: 60px;
+    height: 30px;
+    letter-spacing: 1px;
+    background-color: #6cfecb;
+    border: 3px solid #6cfecb;
+}
+
+.button:hover {
+    background-color: #fcfcfc;
+}
