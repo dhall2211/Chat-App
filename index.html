@@ -1,20 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="de-formal">
+  <head>
+    <title>Chat App</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="main.css">
-</head>
-
-<body>
+  <body>
     <div class="header">
-        <div class="logoarea">
-            <div class="title">CCC</div>
-            <p class="companyName" >Coding Campus Chat</p>
-        </div>
-        <hr>
+      <div class="logoarea">
+        <div class="title">CCC</div>
+        <p class="companyName">Coding Campus Chat</p>
+      </div>
+      <hr />
     </div>
-    <hr>
-</body>
+    <hr />
 
+    <form action="/action_page.php">
+      <div class="mainForm">
+        <div class="flexContainer">
+          <label for="name">Hi! Enter your full name:</label>
+          <input type="text" id="name" name="name" />
+          <input class="button" type="submit" value="Login" />
+        </div>
+      </div>
+    </form>
+  </body>
 </html>
