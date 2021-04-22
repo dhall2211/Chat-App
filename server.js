@@ -5,7 +5,7 @@ const app = express(); //instanciate express app
 const path = require('path');
 const router = express.Router();
 
-//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 const port = 3030; //listening to port 3000
 const fs = require('fs');
 
@@ -13,19 +13,15 @@ const fs = require('fs');
 //searchFile(name);
 
 
-router.get('/', function(req, res){
-    res.sendFile(path.join(__dirname + '/test.html'));
-});
+//router.get('/', function(req, res){
+//    res.sendFile(path.join(__dirname + '/test.html'));
+//});
 
 
 app.post('/login', function (req, res){
-    console.log('Got body:', req);
-    res.sendStatus(200);
-
+    console.log('Got body:', req.body);
+    res.send(req.body.name);
 });
-
-
-
 
 
 function createFile(name) {
@@ -65,7 +61,7 @@ function createSession(name) {
 // routes
 
 router.get('/',function(req,res){
-  res.sendFile(path.join(__dirname+'/index.html'));
+  res.sendFile(path.join(__dirname+'/test.html'));
 
 });
   
