@@ -1,11 +1,9 @@
 
-/* not styling on the body */
-
 *{box-sizing: border-box;}
 *{margin:0;padding:0;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
-/* use classes not id*/
+
 .header{width:100%;height: 200px; 
   margin-top: 40px;
         }
@@ -19,7 +17,7 @@
   background-color: rgb(63, 155, 155);
   text-align:center
 }
-/*class?*/
+
 .h1{font-size: 4em;color:rgb(163, 241, 18);text-shadow: 1px 1px 3px rgb(26, 119, 99);}
  
 .companyName {  
