@@ -1,8 +1,6 @@
 const express = require('express'); //import express app
 //var session = require('express-session');
 const app = express(); //instanciate express app
-//const bodyParser = require('body-parser');
-//const cors = require('cors');
 const path = require('path');
 const router = express.Router();
 
@@ -12,9 +10,9 @@ app.use(express.urlencoded({ extended: true }));
 const port = 3030; //listening to port 3000
 const fs = require('fs');
 
-//const name = "karl";
-//searchFile(name);
 
+app.use('/', router);
+app.use(express.static('public'));
 
 //router.get('/', function(req, res){
 //    res.sendFile(path.join(__dirname + '/test.html'));
@@ -77,7 +75,7 @@ router.get('/home',function(req,res){
     res.sendFile(path.join(__dirname+'/home.html'));
   });
 
-app.use('/', router);
+
 
 
 app.listen(port, () => {
