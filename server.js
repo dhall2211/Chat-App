@@ -20,6 +20,13 @@ const fs = require('fs');
 
 app.post('/login', function (req, res){
     console.log('Got body:', req.body);
+
+    const name = req.body.name;
+    searchAndCreateFile(name);
+
+
+
+
     res.send(req.body.name);
 });
 
@@ -32,7 +39,7 @@ function createFile(name) {
 };
 
 
-function searchFile(name) {
+function searchAndCreateFile(name) {
     const path = `./${name}.txt`
 
     try {
