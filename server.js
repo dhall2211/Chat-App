@@ -1,9 +1,12 @@
 const express = require('express'); //import express app
+//var session = require('express-session');
 const app = express(); //instanciate express app
 //const bodyParser = require('body-parser');
 //const cors = require('cors');
 const path = require('path');
 const router = express.Router();
+
+
 
 app.use(express.urlencoded({ extended: true }));
 const port = 3030; //listening to port 3000
@@ -20,14 +23,12 @@ const fs = require('fs');
 
 app.post('/login', function (req, res){
     console.log('Got body:', req.body);
-
     const name = req.body.name;
-    searchAndCreateFile(name);
+    res
+    .status(201)
+    .cookie('name', name)
+    .redirect(301, '/admin')
 
-
-
-
-    res.send(req.body.name);
 });
 
 
@@ -68,7 +69,7 @@ function createSession(name) {
 // routes
 
 router.get('/',function(req,res){
-  res.sendFile(path.join(__dirname+'/index.html'));
+  res.sendFile(path.join(__dirname+'/test.html'));
 
 });
   
