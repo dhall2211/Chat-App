@@ -1,30 +1,45 @@
 <!DOCTYPE html>
 <html lang="de-formal">
-  <head>
-    <title>Chat App</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="main.css" />
-  </head>
 
-  <body>
-    <div class="header">
-      <div class="logoarea">
-        <div class="title">CCC</div>
-        <p class="companyName">Coding Campus Chat</p>
-      </div>
-      <hr />
+<head>
+  <title>Chat App</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+
+  <script>
+    function checkInput(textField) {
+      if (textField.value.length > 2) {
+        document.getElementById("fnameOK").innerHTML = "&#10004;";
+        document.getElementById("submitButton").disabled = false;
+      } else {
+        document.getElementById("fnameOK").innerHTML = "";
+        document.getElementById("submitButton").disabled = true;
+      }
+    }
+
+  </script>
+
+  <div class="header">
+    <div class="logoarea">
+      <div class="title">CCC</div>
+      <p class="companyName">Coding Campus Chat</p>
     </div>
-    <hr />
+  </div>
 
-    <form action="/action_page.php">
-      <div class="mainForm">
-        <div class="flexContainer">
-          <label for="name">Hi! Enter your full name:</label>
-          <input type="text" id="name" name="name" />
-          <input class="button" type="submit" value="Login" />
+  <form action="#">
+    <div class="mainForm">
+      <div class="flexContainer">
+        <label class="text" for="name">Hi! Enter your full name:</label>
+        <div><input class="text" type="text" id="name" name="name" onkeyup="checkInput(this)"><span id="fnameOK"></span>
         </div>
+        <input class="text" id="submitButton" type="submit" value="Login" disabled="true" />
       </div>
-    </form>
-  </body>
+    </div>
+  </form>
+</body>
+
 </html>
