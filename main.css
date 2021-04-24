@@ -8,23 +8,26 @@
   margin: 0 auto;
   width: 100%;
   height: 150px;  
-  padding: 15px;
+  padding-top: 30px;
   background-color: rgb(63, 155, 155);
   text-align: center;
+  border-bottom: 3px solid rgb(163, 241, 18);
 }
 
 .title {
-  font-size: 4em;
+  font-family: AllegraMedium,sans-serif;
+  font-weight: 600;
+  font-size: 60px;
+  letter-spacing: 10px;
   color: rgb(163, 241, 18);
   text-shadow: 1px 1px 3px rgb(26, 119, 99);
 }
 
 .companyName {
-  font-size: large;
-  color: rgb(243, 239, 7);
-  text-align: center;
-  text-align: center;
-  font-size: large;
+  color: rgb(163, 241, 18);
+  font-family: AllegraMedium,sans-serif;
+  font-size: 19px;
+  letter-spacing: .90px;
 }
 
 .mainForm {
@@ -37,7 +40,7 @@
     justify-content: center;
     flex-direction: column;
     margin-top: 90px;
-    width: 30%;
+    width: 350px;
 }
 
 .flexContainer > * {
@@ -45,18 +48,40 @@
     margin: 20px;
 }
 
-input {
-    width: 190px;
+.text {
+  font-family: AllegraMedium,sans-serif;
+  font-size: 19px;
+  letter-spacing: .76px;
 }
 
-.button {
-    width: 60px;
+input {
+    width: 270px;
+    border: 3px solid rgb(163, 241, 18);
+}
+
+input:focus{
+  outline: none;
+}
+
+#submitButton {
+    width: 90px;
     height: 30px;
     letter-spacing: 1px;
-    background-color: #6cfecb;
-    border: 3px solid #6cfecb;
+    background-color: rgb(163, 241, 18);
+    border: 3px solid rgb(163, 241, 18);
 }
 
-.button:hover {
+#submitButton:hover {
     background-color: #fcfcfc;
+}
+
+#fnameOK {
+  width: 10px;
+  float: right;
+  padding-left: 15px;
+  font-size: larger;
+}
+
+hr {
+  color: rgb(163, 241, 18);
 }
