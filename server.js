@@ -1,7 +1,5 @@
 const express = require('express'); //import express app
 const app = express(); //instanciate express app
-//const bodyParser = require('body-parser');
-//const cors = require('cors');
 const path = require('path');
 const router = express.Router();
 
@@ -9,9 +7,9 @@ app.use(express.urlencoded({ extended: true }));
 const port = 3030; //listening to port 3000
 const fs = require('fs');
 
-//const name = "karl";
-//searchFile(name);
 
+app.use('/', router);
+app.use(express.static('public'));
 
 //router.get('/', function(req, res){
 //    res.sendFile(path.join(__dirname + '/test.html'));
@@ -20,6 +18,7 @@ const fs = require('fs');
 
 app.post('/login', function (req, res){
     console.log('Got body:', req.body);
+    
 
     const name = req.body.name;
     searchAndCreateFile(name);
@@ -67,7 +66,7 @@ function createSession(name) {
 
 // routes
 
-router.get('/',function(req,res){
+router.get('/login',function(req,res){
   res.sendFile(path.join(__dirname+'/index.html'));
 
 });
@@ -76,7 +75,7 @@ router.get('/home',function(req,res){
     res.sendFile(path.join(__dirname+'/home.html'));
   });
 
-app.use('/', router);
+
 
 
 app.listen(port, () => {
