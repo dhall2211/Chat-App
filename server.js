@@ -68,7 +68,7 @@ function createSession(name) {
 // routes
 
 router.get('/',function(req,res){
-  res.sendFile(path.join(__dirname+'/test.html'));
+  res.sendFile(path.join(__dirname+'/index.html'));
 
 });
   
