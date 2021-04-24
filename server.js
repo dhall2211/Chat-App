@@ -1,14 +1,33 @@
 const express = require('express'); //import express app
-//var session = require('express-session');
+var session = require('express-session')
 const app = express(); //instanciate express app
 const path = require('path');
 const router = express.Router();
-
+const { json } = require('express')
 
 
 app.use(express.urlencoded({ extended: true }));
 const port = 3030; //listening to port 3000
 const fs = require('fs');
+
+app.use(session({
+    secret: 'einhorn chat',
+    resave: false,
+    saveUninitialized: true
+  }))
+
+  app.use(function (req, res, next) {
+      console.log("app.use " + req.body)
+    //if (!req.session.username) {
+    //  req.session.username = {}
+    //}json
+   
+    //var name = req.body.name;
+    // count the views
+    //req.session.username = name;
+
+    next();
+  });
 
 
 app.use('/', router);
@@ -19,13 +38,26 @@ app.use(express.static('public'));
 //});
 
 
-app.post('/login', function (req, res){
+   
+router.get('/sessiontest', function(req, res, next){
+    if (!req.session.username){
+        res
+        .status(201)
+        .redirect(301, '/')
+    }
+    res.send('your username: ' + req.session.username)
+}
+
+)
+
+
+router.post('/login', function (req, res, next){
     console.log('Got body:', req.body);
-    const name = req.body.name;
+    req.session.username = req.body.name;
+    
     res
     .status(201)
-    .cookie('name', name)
-    .redirect(301, '/admin')
+    .redirect(301, '/sessiontest')
 
 });
 
