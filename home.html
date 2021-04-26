@@ -1,5 +1,54 @@
-<html>
-    <body>
-        <p>Hello World!</p>
-    </body>
+<!DOCTYPE html>
+<html lang="de-formal">
+
+<head>
+  <title>ChatAppHome</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="home.css" />
+</head>
+
+<body onload="time()">
+  <script>
+    function time() {
+      var time = new Date();
+      document.getElementById("now").innerHTML = time.getDay() + "-" + time.getMonth() + "-" + time.getFullYear() + "," + time.getUTCHours() + ":" + time.getUTCMinutes();
+      setInterval(time(), 1000);
+    }
+  </script>
+
+  <div class="header">
+    <div class="logoarea">
+      <div class="title">CCC</div>
+      <p class="companyName">Coding Campus Chat</p>
+    </div>
+  </div>
+
+  <div class="chat_room">
+    <div class="container">
+      <img src="img/person.png" alt="others" style="width:100%;">
+      <p>Hello. How are you today?</p>
+      <span class="time-left" id="now"></span>
+    </div>
+
+    <div class="container darker">
+      <img src="img/person.png" alt="I" class="right" style="width:100%;">
+      <p>Hey! I'm fine. Thanks for asking!</p>
+      <span class="time-right" id="now"></span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <form action="#">
+      <div class="footerContainer">
+        <div><input class="text" type="text" id="textInputField" name="textfield"
+            placeholder="Type your messages here.">
+        </div>
+        <div><input id="submitButton" type="submit" value="Send" onclick="sendMsg()" />
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+
 </html>
