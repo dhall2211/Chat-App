@@ -136,3 +136,17 @@ input[type=text] {
 #submitButton:hover {
         background-color: #fcfcfc;
     }
+    
+    textarea {
+      width: 95%;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      background-color: white;
+      background-image: url('searchicon.png');
+      background-position: 10px 10px; 
+      background-repeat: no-repeat;
+      padding: 10px 15px 12px 10px;
+      margin-top:10px;
+    }

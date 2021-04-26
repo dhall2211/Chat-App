@@ -26,6 +26,18 @@
   </div>
 
   <script>
+// var bodyParser = require('body-parser')
+// app.use(bodyParser.urlencoded({extended: false}));
+
+app.post('/sendChat', function(req,res){
+    var description = req.body.messageInput;
+    res.send(description);
+});
+
+app.get('/home/:id', function(req, res){
+  res.send('home');
+});
+
     const chats=[
       {
         text: 'hi',
@@ -43,6 +55,7 @@
 
     // chats.map(chat)=> {
       // create div html, insert innerHTML
+
     //}
 
 
@@ -91,25 +104,28 @@
   </script>
 
   <div class="chat_room">
+    <form action="/home" methode = "post">
     <div class="container">
       <img src="../img/person.png" alt="others" style="width:100%;">
-      <p id="receivedMessage"> </p>
+      <p><input type="text" id="fname_others" name="fname_others" value="Name"></p>
+      <p><textarea id="receivedMessage" name="getChat"></textarea></p>
       <span class="time-left" id="now-left"></span>
     </div>
 
     <div class="container darker">
       <img src="../img/person.png" alt="I" class="right" style="width:100%;">
-      <div><input class="message" type="text" id="message" name="message">
-      </div>
+      <p><input type="text" id="fname_msgWriter" name="fname_msgWriter" value="Name"></p>
+      <p><textarea id ="messageSent" name="messageSent"></textarea></p>
       <span class="time-right" id="now-right"></span>
     </div>
+  </form>
   </div>
 
   <div class="footer">
-    <form action="#">
+    <form action="/sendChat">
       <div class="footerContainer">
-        <div><input class="text" type="text" id="textInputField" name="textfield"
-            placeholder="Type your messages here.">
+        <div><textarea id="textInputfield" name="messageInput" placeholder="Type your messages here."
+          ></textarea>
         </div>
         <div><input id="submitButton" type="submit" value="Send" onclick="postMessage()" />
         </div>
