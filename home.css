@@ -1,0 +1,138 @@
+
+.header {
+    width: 100%;
+    height: 200px;
+  }
+  
+.logoarea {
+    margin: 0 auto;
+    width: 100%;
+    height: 150px;  
+    padding-top: 30px;
+    background-color: rgb(63, 155, 155);
+    text-align: center;
+    border-bottom: 3px solid rgb(163, 241, 18);
+  }
+  
+.title {
+    font-family: AllegraMedium,sans-serif;
+    font-weight: 600;
+    font-size: 60px;
+    letter-spacing: 10px;
+    color: rgb(163, 241, 18);
+    text-shadow: 1px 1px 3px rgb(26, 119, 99);
+  }
+  
+.companyName {
+    color: rgb(163, 241, 18);
+    font-family: AllegraMedium,sans-serif;
+    font-size: 19px;
+    letter-spacing: .90px;
+  }
+ 
+  /*chat-body*/
+
+.chat_room {
+  min-height: 500px;
+  margin: 30px;
+ }
+
+.chat_room > * {box-sizing: border-box;
+}
+
+.container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 5px;
+  width: 60%;
+  text-align: left; 
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+  margin-top: 10px;
+  width: 60%;
+  text-align: right;
+  float:right;
+  min-height:100px;
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+} 
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-left {
+  float: right;
+  color: #999;
+}
+
+.time-right {
+  float: right;
+  color: #999;
+}
+
+/*Footer*/
+
+.footer { 
+     background-color: aquamarine;opacity: 40%; 
+     min-height:150px; width:100%; margin-top: 20px; } 
+ 
+.footerContainer {
+    min-height:145px; 
+    width:100%; 
+    padding: 5px;
+    flex-direction: row;   
+}
+
+.footerContainer > * {
+    display: flex;
+    justify-content: center;    
+    align-content: space-around;
+    align-self: center;
+    margin-top :10px; margin-bottom: 10px;
+    }
+
+input[type=text] {
+        width: 95%;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: white;
+        background-image: url('searchicon.png');
+        background-position: 10px 10px; 
+        background-repeat: no-repeat;
+        padding: 10px 15px 12px 10px;
+        margin-top:10px;
+      }
+
+#submitButton {
+        width: 90px;
+        height: 50spx;
+        font-size: 16px;
+        letter-spacing: 1px;
+        background-color: rgb(163, 241, 18);
+        border: 3px solid rgb(163, 241, 18);
+        padding: 5px 
+    }
+#submitButton:hover {
+        background-color: #fcfcfc;
+    }
