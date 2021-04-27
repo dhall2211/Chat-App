@@ -8,7 +8,7 @@ const port = 3030; //listening to port 3000
 
 const UserService = require('./services/UserService')
 
-
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use("/", router);
@@ -37,6 +37,7 @@ app.use(( req, res, next) => {
 //     saveUninitialized: true,
 //   })
 // );
+const chats = [];
 
 app.post("/login", async (req, res, next) => {
     const vm = req.body.name;
@@ -68,8 +69,33 @@ app.post("/logout", async (req, res) => {
 });
 
 // get chats
+app.get('/getChat', function (req, res) {
+    res.json(chats);
+    }
+);
 
 // post chat
+app.post('/sendChat', function (req, res, next) {
+    //console.log('Cookies: ', req.cookies);
+    console.log('The Body:', req.body);
+    console.log('Session: ', req.session);
+
+    const name = req.cookies.user;
+    const msg = req.body.msg;
+    const timestamp = Date.now();
+    chats.push({
+        'user': name,
+        'msg': msg,
+        'timestamp': timestamp
+    })
+    console.log(chats);
+    res
+        .status(200)
+        .json(chats);
+
+});
+
+
 
 // file logic
 function createFile(name) {
@@ -105,5 +131,5 @@ router.get("/home", function (req, res) {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`Example app listening at http://localhost:${port}`)
 });
