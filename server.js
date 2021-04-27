@@ -17,11 +17,7 @@ app.use(session({
   }))
 
   
-
-
-
-
-   
+ 
 app.post('/login', function (req, res, next){
     console.log('Got body:', req.body);
     req.session.username = req.body.name;
@@ -32,6 +28,15 @@ app.post('/login', function (req, res, next){
 
 });
 
+// post logout
+
+// get chats
+
+
+// post chat
+
+
+// file logic
 function createFile(name) {
     fs.appendFile(`${name}.txt`, name, function (err) {
         if (err) throw err;
@@ -56,12 +61,6 @@ function searchAndCreateFile(name) {
 
     }
 }
-
-
-function createSession(name) {
-    console.log("Session created")
-}
-
 
 
 
