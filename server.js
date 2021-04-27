@@ -3,7 +3,10 @@ var session = require('express-session')
 const app = express(); //instanciate express app
 const path = require('path');
 const router = express.Router();
-const { json } = require('express')
+
+
+app.use(express.urlencoded({ extended: true }));
+const port = 3030; //listening to port 3000
 const fs = require('fs');
 const port = 3030; //listening to port 3000
 
@@ -24,7 +27,7 @@ app.post('/login', function (req, res, next){
     
     res
     .status(201)
-    .redirect(301, '/sessiontest')
+    .redirect(301, '/home')
 
 });
 
@@ -74,8 +77,6 @@ router.get('/',function(req,res){
 router.get('/home',function(req,res){
     res.sendFile(path.join(__dirname+'/pages/home.html'));
   });
-
-
 
 
 app.listen(port, () => {
