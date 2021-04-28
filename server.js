@@ -24,7 +24,21 @@ app.use(session({
     saveUninitialized: true
 }))
 
-const chats = [];
+let chats = [];
+
+//populate chats array from file
+try {
+    const data = fs.readFileSync('./data/chats.json', 'utf8');
+    // parse JSON string to JSON object
+    chats = JSON.parse(data);
+    // print all chats of loaded to console
+    chats.forEach(chat => {
+        console.log(`${chat.user}: ${chat.msg}`);
+    });
+} catch (err) {
+    console.log(`Error reading file from disk: ${err}`);
+}
+
 
 app.post('/login', function (req, res, next) {
     console.log('Got body:', req.body);
@@ -41,7 +55,7 @@ app.post('/login', function (req, res, next) {
 // get chats
 app.get('/getChat', function (req, res) {
     res.json(chats);
-    }
+}
 );
 
 // post chat
@@ -50,14 +64,23 @@ app.post('/sendChat', function (req, res, next) {
     console.log('The Body:', req.body);
     console.log('Session: ', req.session);
 
-    const name = req.cookies.user;
+    //const name = req.cookies.user;
+    const user = req.body.user;
     const msg = req.body.msg;
     const timestamp = Date.now();
     chats.push({
-        'user': name,
+        'user': user,
         'msg': msg,
         'timestamp': timestamp
     })
+
+    //write chats to JSON file
+    fs.writeFile('./data/chats.json', JSON.stringify(chats, null, 4), (err) => {
+        if (err) {
+            console.log(`Error writing file: ${err}`);
+        }
+    });
+
     console.log(chats);
     res
         .status(200)
@@ -69,30 +92,30 @@ app.post('/sendChat', function (req, res, next) {
 
 
 // file logic
-function createFile(name) {
-    fs.appendFile(`${name}.txt`, name, function (err) {
-        if (err) throw err;
-        console.log('Saved!');
-    });
-};
+// function createFile(name) {
+//     fs.appendFile(`${name}.txt`, name, function (err) {
+//         if (err) throw err;
+//         console.log('Saved!');
+//     });
+// }
 
-function searchAndCreateFile(name) {
-    const path = `./${name}.txt`
+// function searchAndCreateFile(name) {
+//     path = `./${name}.txt`
 
-    try {
-        if (fs.existsSync(path)) {
-            createSession(name);
+//     try {
+//         if (fs.existsSync(path)) {
+//             createSession(name);
 
-        } else {
-            createFile(name);
-            createSession(name);
-        }
+//         } else {
+//             createFile(name);
+//             createSession(name);
+//         }
 
-    } catch (err) {
-        console.error(err)
+//     } catch (err) {
+//         console.error(err)
 
-    }
-}
+//     }
+// }
 
 
 
