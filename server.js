@@ -4,8 +4,6 @@ const app = express(); //instanciate express app
 const path = require('path'); // path handling
 const router = express.Router(); //for route handling
 
-
-
 app.use(express.json()); //json capabilities
 
 app.use(express.urlencoded({
@@ -33,7 +31,7 @@ try {
     chats = JSON.parse(data);
     // print all chats of loaded to console
     chats.forEach(chat => {
-        console.log(`${chat.user}: ${chat.msg}`);
+        console.log(`${chat.user}: ${chat.msg} at ${new Date(chat.timestamp).toUTCString()}`);
     });
 } catch (err) {
     console.log(`Error reading file from disk: ${err}`);
