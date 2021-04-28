@@ -86,7 +86,13 @@ app.post('/sendChat', function (req, res, next) {
 
 });
 
-
+//delete all Chat messages
+app.get('/deleteAllMessages', function (req, res) {
+    chats = [];
+    //todo: Write to file
+    res.json(chats);
+}
+);
 
 
 // file logic
