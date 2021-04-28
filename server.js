@@ -47,7 +47,7 @@ try {
     chats = JSON.parse(data);
     // print all chats of loaded to console
     chats.forEach(chat => {
-        console.log(`${chat.user}: ${chat.msg}`);
+        console.log(`${chat.user}: ${chat.msg} at ${new Date(chat.timestamp).toUTCString()}`);
     });
 } catch (err) {
     console.log(`Error reading file from disk: ${err}`);
