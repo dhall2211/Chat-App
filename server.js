@@ -8,7 +8,7 @@ const router = express.Router();
 app.use(express.urlencoded({ extended: true }));
 const port = 3030; //listening to port 3000
 const fs = require('fs');
-const port = 3030; //listening to port 3000
+
 
 app.use(express.static('public'));
 app.use('/', router);
