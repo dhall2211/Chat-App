@@ -113,7 +113,7 @@ app.get("/getMessages", function (req, res) {
 
 // post chat
 
-app.post("/sendMessages", function (req, res, next) {
+app.post("/sendMessage", function (req, res, next) {
   //console.log('Cookies: ', req.cookies);
   console.log("The Body:", req.body);
   console.log("Session: ", req.session);
@@ -123,14 +123,22 @@ app.post("/sendMessages", function (req, res, next) {
   const msg = req.body.msg;
   const timestamp = Date.now();
 
-  conn.connect();
-
-conn.query('INSERT INTO messages (user, msg, timestamp) VALUES (${chat.msg}', function(err, rows, fields) {
+  conn.connect(function(err) {
     if (err) throw err;
-    console.log(rows);
+    var sql = "INSERT INTO messages (user, msg, timestamp) VALUES ('Hans','Hallöle',1619706361615)";
+    conn.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("1 record inserted, ID: " + result.insertId);
+    });
   });
-  
-  conn.end();
+
+//   conn.connect();
+
+// conn.query("INSERT INTO messages (user, msg, timestamp) VALUES ('Hans','Hallöle',1619706361615)", function(err, rows, fields) {
+//     if (err) throw err;
+//     console.log(rows);
+//   });
+//   conn.end();
 
 
 //   chats.push({
