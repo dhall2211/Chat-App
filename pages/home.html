@@ -17,44 +17,6 @@
   </div>
 
   <script>
-    function myTime() {
-      var time = new Date();
-      document.getElementById("now-left").innerHTML = time.getDay() + "-" + time.getMonth() + "-" + time.getFullYear() + "," + time.getUTCHours() + ":" + time.getUTCMinutes();
-      document.getElementById("now-right").innerHTML = time.getDay() + "-" + time.getMonth() + "-" + time.getFullYear() + "," + time.getUTCHours() + ":" + time.getUTCMinutes();
-    }
-
-    // var bodyParser = require('body-parser')
-    // app.use(bodyParser.urlencoded({extended: false}));
-/*
-    app.post('/sendChat', function (req, res) {
-      var description = req.body.messageInput;
-      res.send(description);
-    });
-
-    app.get('/home/:id', function (req, res) {
-      res.send('home');
-    });
-*/
-    const chats = [
-      {
-        text: 'hi',
-        date: 'june 5 1995',
-      },
-      {
-        text: 'yo',
-        date: 'june 5 1995',
-      },
-      {
-        text: 'whats up!!!',
-        date: 'june 5 1995',
-      },
-    ];
-
-    // chats.map(chat)=> {
-    // create div html, insert innerHTML
-
-    //}
-
 
     // Example POST method implementation:
     async function postData(url = '', data = {}) {
@@ -80,57 +42,46 @@
       postData('/sendChat', { msg: message });
     }
 
-    async function getData(url) {
-      const response = await fetch(url);
+
+
+    async function printMessage() {
+      const response = await fetch('getChat');
       const data = await response.json();
-      return data;
+      document.getElementById('chat_room_main').innerHTML = '';
+      data.forEach(element => {
+        var messageBox = document.createElement('div');
+        messageBox.classList.add('container');
+        if (element.user === 'Sabrina') {
+          messageBox.classList.add('darker');
+        }
+        var nameBox = document.createElement('div');
+        var msgBox = document.createElement('div');
+        var timeStampBox = document.createElement('div');
+        messageBox.appendChild(nameBox);
+        messageBox.appendChild(msgBox);
+        messageBox.appendChild(timeStampBox);
+
+        nameBox.innerHTML = element.user;
+        msgBox.innerHTML = element.msg;
+        timeStampBox.innerHTML = element.timestamp;
+
+
+        document.getElementById('chat_room_main').appendChild(messageBox);
+      });
     }
 
-    function printMessage() {
-      const message = getData('getMessages');
-      document.getElementById("receivedMessage").innerHTML = message;
-    }
 
-    setInterval(() => {
+
+    function init() {
       printMessage();
-    }, 10000);
-
-    function init(){
-      printMessage();
-      myTime();
-      setInterval(myTime(), 1000);
+      setInterval(() => {
+        printMessage();
+      }, 10000);
     }
-
-    app.get('/nologout', function(req, res, next){
-      if(req.session) {        
-          req.session.destroy (function (err) {
-            if (err) {
-              return next (err);
-          } else {
-            return res.redirect('/');
-          }
-        });
-      }
-    });
 
   </script>
 
-  <div class="chat_room">
-    <form action="/home" methode="post">
-      <div class="container">
-        <img src="../img/person.png" alt="others" style="width:100%;">
-        <p><input type="text" id="fname_others" name="fname_others" value="Name"></p>
-        <p><textarea id="OLDreceivedMessage" name="getChat"></textarea></p>
-        <span class="time-left" id="now-left"></span>
-      </div>
-
-      <div class="container darker">
-        <img src="../img/person.png" alt="I" class="right" style="width:100%;">
-        <p><input type="text" id="fname_msgWriter" name="fname_msgWriter" value="Name"></p>
-        <p><textarea id="messageSent" name="messageSent"></textarea></p>
-        <span class="time-right" id="now-right"></span>
-      </div>
-    </form>
+  <div class="chat_room" id="chat_room_main">
   </div>
 
   <div class="footer">
@@ -140,7 +91,7 @@
         </div>
         <div><input id="submitButton" type="submit" value="Send" onclick="postMessage()" />
         </div>
-        </div>
+      </div>
     </form>
 
     <form action="/logout" method="POST">
@@ -149,8 +100,6 @@
     </form>
 
   </div>
-
-  <div id="receivedMessage"></div>
 
 </body>
 
