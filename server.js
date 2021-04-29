@@ -8,7 +8,7 @@ const router = express.Router();
 app.use(express.urlencoded({ extended: true }));
 const port = 3030; //listening to port 3000
 const fs = require('fs');
-const port = 3030; //listening to port 3000
+
 
 app.use(express.static('public'));
 app.use('/', router);
@@ -76,8 +76,20 @@ router.get('/',function(req,res){
   
 router.get('/home',function(req,res){
     res.sendFile(path.join(__dirname+'/pages/home.html'));
-  });
+});
 
+
+router.get('/home.css',function(req,res){
+    res.sendFile(path.join(__dirname+'/home.css'));
+});
+
+router.get('/public/main.css',function(req,res){
+    res.sendFile(path.join(__dirname+'/'+req.url));
+});
+
+router.get('/img/*.png',function(req,res){
+    res.sendFile(path.join(__dirname+'/'+req.url));
+});
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

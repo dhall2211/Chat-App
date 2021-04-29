@@ -5,7 +5,7 @@
   <title>Chat App</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="../public/main.css" />
 </head>
 
 <body>
@@ -30,11 +30,12 @@
     </div>
   </div>
 
-  <form action="/login">
+  <form action="/login" method="POST">
     <div class="mainForm">
       <div class="flexContainer">
-        <label class="text" for="name">Hi! Enter your full name:</label>
-        <div><input class="text" type="text" id="name" name="name" onkeyup="checkInput(this)"><span id="fnameOK"></span>
+        <label class="text" for="userName">Hi! Enter your full name:</label>
+        <div><input class="text" type="text" id="userName" name="userName" onkeyup="checkInput(this)"><span
+            id="fnameOK"></span>
         </div>
         <input class="text" id="submitButton" type="submit" value="Login" disabled="true" />
       </div>

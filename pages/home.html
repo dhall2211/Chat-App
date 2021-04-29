@@ -8,16 +8,7 @@
   <link rel="stylesheet" href="../home.css" />
 </head>
 
-<body onload="time()">
-  <script>
-    function time() {
-      var time = new Date();
-      document.getElementById("now-left").innerHTML = time.getDay() + "-" + time.getMonth() + "-" + time.getFullYear() + "," + time.getUTCHours() + ":" + time.getUTCMinutes();
-      document.getElementById("now-right").innerHTML = time.getDay() + "-" + time.getMonth() + "-" + time.getFullYear() + "," + time.getUTCHours() + ":" + time.getUTCMinutes();
-      setInterval(time(), 1000);
-    }
-  </script>
-
+<body onload="init()">
   <div class="header">
     <div class="logoarea">
       <div class="title">CCC</div>
@@ -26,19 +17,25 @@
   </div>
 
   <script>
-// var bodyParser = require('body-parser')
-// app.use(bodyParser.urlencoded({extended: false}));
+    function myTime() {
+      var time = new Date();
+      document.getElementById("now-left").innerHTML = time.getDay() + "-" + time.getMonth() + "-" + time.getFullYear() + "," + time.getUTCHours() + ":" + time.getUTCMinutes();
+      document.getElementById("now-right").innerHTML = time.getDay() + "-" + time.getMonth() + "-" + time.getFullYear() + "," + time.getUTCHours() + ":" + time.getUTCMinutes();
+    }
 
-app.post('/sendChat', function(req,res){
-    var description = req.body.messageInput;
-    res.send(description);
-});
+    // var bodyParser = require('body-parser')
+    // app.use(bodyParser.urlencoded({extended: false}));
+/*
+    app.post('/sendChat', function (req, res) {
+      var description = req.body.messageInput;
+      res.send(description);
+    });
 
-app.get('/home/:id', function(req, res){
-  res.send('home');
-});
-
-    const chats=[
+    app.get('/home/:id', function (req, res) {
+      res.send('home');
+    });
+*/
+    const chats = [
       {
         text: 'hi',
         date: 'june 5 1995',
@@ -54,7 +51,7 @@ app.get('/home/:id', function(req, res){
     ];
 
     // chats.map(chat)=> {
-      // create div html, insert innerHTML
+    // create div html, insert innerHTML
 
     //}
 
@@ -92,48 +89,58 @@ app.get('/home/:id', function(req, res){
     }
 
     function printMessage() {
-      const message = getData('http://localhost3030/getChat');
-      document.getElementById("receivedMessage").innerText = message;
+      const message = getData('getMessages');
+      document.getElementById("receivedMessage").innerHTML = message;
     }
 
     setInterval(() => {
       printMessage();
     }, 10000);
-    printMessage();
+
+    function init(){
+      printMessage();
+      myTime();
+      setInterval(myTime(), 1000);
+    }
 
   </script>
 
   <div class="chat_room">
-    <form action="/home" methode = "post">
-    <div class="container">
-      <img src="../img/person.png" alt="others" style="width:100%;">
-      <p><input type="text" id="fname_others" name="fname_others" value="Name"></p>
-      <p><textarea id="receivedMessage" name="getChat"></textarea></p>
-      <span class="time-left" id="now-left"></span>
-    </div>
+    <form action="/home" methode="post">
+      <div class="container">
+        <img src="../img/person.png" alt="others" style="width:100%;">
+        <p><input type="text" id="fname_others" name="fname_others" value="Name"></p>
+        <p><textarea id="OLDreceivedMessage" name="getChat"></textarea></p>
+        <span class="time-left" id="now-left"></span>
+      </div>
 
-    <div class="container darker">
-      <img src="../img/person.png" alt="I" class="right" style="width:100%;">
-      <p><input type="text" id="fname_msgWriter" name="fname_msgWriter" value="Name"></p>
-      <p><textarea id ="messageSent" name="messageSent"></textarea></p>
-      <span class="time-right" id="now-right"></span>
-    </div>
-  </form>
+      <div class="container darker">
+        <img src="../img/person.png" alt="I" class="right" style="width:100%;">
+        <p><input type="text" id="fname_msgWriter" name="fname_msgWriter" value="Name"></p>
+        <p><textarea id="messageSent" name="messageSent"></textarea></p>
+        <span class="time-right" id="now-right"></span>
+      </div>
+    </form>
   </div>
 
   <div class="footer">
     <form action="/sendChat">
       <div class="footerContainer">
-        <div><textarea id="textInputfield" name="messageInput" placeholder="Type your messages here."
-          ></textarea>
+        <div><textarea id="textInputfield" name="messageInput" placeholder="Type your messages here."></textarea>
         </div>
         <div><input id="submitButton" type="submit" value="Send" onclick="postMessage()" />
         </div>
-        <div><input id="submitButton" type="submit" value="Logout" onclick="logout()" />
         </div>
+    </form>
+
+    <form action="/logout" method="POST">
+      <div><input id="submitButton" type="submit" value="Logout" />
       </div>
     </form>
+
   </div>
+
+  <div id="receivedMessage"></div>
 
 </body>
 
