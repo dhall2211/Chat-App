@@ -38,21 +38,40 @@ app.use(( req, res, next) => {
 //   })
 // );
 
+var mysql      = require('mysql');
+var conn = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'chatapp',
+  password : 'SDw.VN0az2bV1:TVr3caQo',
+  database : 'chatapp'
+});
+
+conn.connect();
+
+conn.query('SELECT * FROM messages AS Messages', function(err, rows, fields) {
+    if (err) throw err;
+    console.log(rows);
+  });
+  
+  conn.end();
+
+
 let chats = [];
 
-try {
-  const data = fs.readFileSync("./data/chats.json", "utf8");
-  // parse JSON string to JSON object
-  chats = JSON.parse(data);
-  // print all chats of loaded to console
-  chats.forEach((chat) => {
-    console.log(
-      `${chat.user}: ${chat.msg} at ${new Date(chat.timestamp).toUTCString()}`
-    );
-  });
-} catch (err) {
-  console.log(`Error reading file from disk: ${err}`);
-}
+//populate array from json file
+// try {
+//   const data = fs.readFileSync("./data/chats.json", "utf8");
+//   // parse JSON string to JSON object
+//   chats = JSON.parse(data);
+//   // print all chats of loaded to console
+//   chats.forEach((chat) => {
+//     console.log(
+//       `${chat.user}: ${chat.msg} at ${new Date(chat.timestamp).toUTCString()}`
+//     );
+//   });
+// } catch (err) {
+//   console.log(`Error reading file from disk: ${err}`);
+// }
 
 app.post("/login", async (req, res, next) => {
     const vm = req.body.name;
@@ -84,13 +103,17 @@ app.post("/logout", async (req, res) => {
 });
 
 // get chats
-app.get("/getChat", function (req, res) {
+app.get("/getMessages", function (req, res) {
+
+    //add DBConnection 
+
+
   res.json(chats);
 });
 
 // post chat
 
-app.post("/sendChat", function (req, res, next) {
+app.post("/sendMessages", function (req, res, next) {
   //console.log('Cookies: ', req.cookies);
   console.log("The Body:", req.body);
   console.log("Session: ", req.session);
@@ -99,15 +122,25 @@ app.post("/sendChat", function (req, res, next) {
   const user = req.body.user;
   const msg = req.body.msg;
   const timestamp = Date.now();
-  chats.push({
-    user: user,
-    msg: msg,
-    timestamp: timestamp,
+
+  conn.connect();
+
+conn.query('INSERT INTO messages (user, msg, timestamp) VALUES (${chat.msg}', function(err, rows, fields) {
+    if (err) throw err;
+    console.log(rows);
   });
+  
+  conn.end();
 
-  writeChatsToJsonFile("./data/chats.json", chats);
 
-  console.log(chats);
+//   chats.push({
+//     user: user,
+//     msg: msg,
+//     timestamp: timestamp,
+//   });
+//  writeChatsToJsonFile("./data/chats.json", chats);
+//  console.log(chats);
+
   res.status(200).json(chats);
 });
 
