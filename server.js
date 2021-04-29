@@ -7,7 +7,7 @@ const fs = require("fs");
 const port = 3030; //listening to port 3000
 
 const UserService = require('./services/UserService');
-const dbConnect = require('./repository/databaseConnection');
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -93,11 +93,6 @@ app.get("/getChat", function (req, res) {
 // post chat
 
 app.post("/sendChat", function (req, res, next) {
-  //console.log('Cookies: ', req.cookies);
-  console.log("The Body:", req.body);
-  console.log("Session: ", req.session);
-
-  //const name = req.cookies.user;
   const user = req.body.user;
   const msg = req.body.msg;
   const timestamp = Date.now();
