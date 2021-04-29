@@ -161,6 +161,18 @@ router.get("/home", function (req, res) {
   res.sendFile(path.join(__dirname + "/pages/home.html"));
 });
 
+router.get('/home.css',function(req,res){
+    res.sendFile(path.join(__dirname+'/home.css'));
+});
+
+router.get('/public/main.css',function(req,res){
+    res.sendFile(path.join(__dirname+'/'+req.url));
+});
+
+router.get('/img/*.png',function(req,res){
+    res.sendFile(path.join(__dirname+'/'+req.url));
+});
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
