@@ -5,30 +5,35 @@ const path = require("path");
 const router = express.Router();
 const fs = require("fs");
 const port = 3030; //listening to port 3000
+const dbConnect = require('./repos/dbconnection');
 
 const UserService = require('./services/UserService')
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+  extended: true
+}));
 app.use(express.static("public"));
 app.use("/", router);
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+  extended: true
+}));
 // middleware cookie parser
-app.use(( req, res, next) => {
-    if(!req.headers.cookie) {
-        req.cookie = {};
-        return next();
-    }
-    const values = req.headers.cookie.split("; ");
-    const cookieValues = {};
-    values.forEach((cookieValue) => {
-      const splitted = cookieValue.split("=");
-      const key = splitted[0];
-      const value = splitted[1];
-      cookieValues[key] = value;
-    });
-    req.cookies = cookieValues;
-    next();
+app.use((req, res, next) => {
+  if (!req.headers.cookie) {
+    req.cookie = {};
+    return next();
+  }
+  const values = req.headers.cookie.split("; ");
+  const cookieValues = {};
+  values.forEach((cookieValue) => {
+    const splitted = cookieValue.split("=");
+    const key = splitted[0];
+    const value = splitted[1];
+    cookieValues[key] = value;
+  });
+  req.cookies = cookieValues;
+  next();
 });
 // app.use(
 //   session({
@@ -38,22 +43,12 @@ app.use(( req, res, next) => {
 //   })
 // );
 
-var mysql      = require('mysql');
-var conn = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'chatapp',
-  password : 'SDw.VN0az2bV1:TVr3caQo',
-  database : 'chatapp'
+dbConnect.connect();
+dbConnect.query('SELECT * FROM messages AS Messages', function (err, rows, fields) {
+  if (err) throw err;
+  console.log(rows);
 });
-
-conn.connect();
-
-conn.query('SELECT * FROM messages AS Messages', function(err, rows, fields) {
-    if (err) throw err;
-    console.log(rows);
-  });
-  
-  conn.end();
+dbConnect.end();
 
 let chats = [];
 
@@ -73,29 +68,29 @@ let chats = [];
 // }
 
 app.post("/login", async (req, res, next) => {
-    const vm = req.body.name;
-    console.log(vm);
+  const vm = req.body.name;
+  console.log(vm);
   try {
     const response = await UserService.createUser(vm);
-    if(response.status) {
-        res.cookie('user', response.name);
-        //res.send(response.name);
-        res.redirect('/home');
-    }else{
-        res.redirect('/')
-        res.send('Sorry user name not correct')
+    if (response.status) {
+      res.cookie('user', response.name);
+      //res.send(response.name);
+      res.redirect('/home');
+    } else {
+      res.redirect('/')
+      res.send('Sorry user name not correct')
 
     }
   } catch (err) {
-      console.log(err);
-      return res.render('/login', 'unable to login');
+    console.log(err);
+    return res.render('/login', 'unable to login');
   }
 });
 
 // post logout
 app.post("/logout", async (req, res) => {
   try {
- 
+
     res.clearCookie("user");
     return res.redirect("/");
   } catch (error) {}
@@ -104,7 +99,7 @@ app.post("/logout", async (req, res) => {
 // get chats
 app.get("/getMessages", function (req, res) {
 
-    //add DBConnection 
+  //add DBConnection 
 
 
   res.json(chats);
@@ -122,26 +117,32 @@ app.post("/sendMessage", function (req, res, next) {
   const msg = req.body.msg;
   const timestamp = Date.now();
 
-//   conn.connect(function(err) {
-//     if (err) throw err;
-//     var sql = "INSERT INTO messages (user, msg, timestamp) VALUES ('Hans','Hallöle',1619706361615)";
-//     conn.query(sql, function (err, result) {
-//       if (err) throw err;
-//       console.log("1 record inserted, ID: " + result.insertId);
-//     });
-//   });
+  dbConnect.connect();
+  dbConnect.query("INSERT INTO messages (user, msg, timestamp) VALUES ('Hans','Hallöle',1619706361615)", function (err, rows, fields) {
+    if (err) throw err;
+    console.log(rows);
+  });
+  dbConnect.end();
 
-//    conn.end();
+  // dbConnect.connect(function (err) {
+  //   if (err) throw err;
+  //   var sql = "INSERT INTO messages (user, msg, timestamp) VALUES ('Hans','Hallöle',1619706361615)";
+  //   dbConnect.query(sql, function (err, result) {
+  //     if (err) throw err;
+  //     console.log("1 record inserted, ID: " + result.insertId);
+  //   });
+  // });
+  // dbConnect.end();
 
 
 
-//   chats.push({
-//     user: user,
-//     msg: msg,
-//     timestamp: timestamp,
-//   });
-//  writeChatsToJsonFile("./data/chats.json", chats);
-//  console.log(chats);
+  //   chats.push({
+  //     user: user,
+  //     msg: msg,
+  //     timestamp: timestamp,
+  //   });
+  //  writeChatsToJsonFile("./data/chats.json", chats);
+  //  console.log(chats);
 
   res.status(200).json(chats);
 });
