@@ -10,26 +10,30 @@ const UserService = require('./services/UserService');
 
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+  extended: true
+}));
 app.use(express.static("public"));
 app.use("/", router);
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+  extended: true
+}));
 // middleware cookie parser
-app.use(( req, res, next) => {
-    if(!req.headers.cookie) {
-        req.cookie = {};
-        return next();
-    }
-    const values = req.headers.cookie.split("; ");
-    const cookieValues = {};
-    values.forEach((cookieValue) => {
-      const splitted = cookieValue.split("=");
-      const key = splitted[0];
-      const value = splitted[1];
-      cookieValues[key] = value;
-    });
-    req.cookies = cookieValues;
-    next();
+app.use((req, res, next) => {
+  if (!req.headers.cookie) {
+    req.cookie = {};
+    return next();
+  }
+  const values = req.headers.cookie.split("; ");
+  const cookieValues = {};
+  values.forEach((cookieValue) => {
+    const splitted = cookieValue.split("=");
+    const key = splitted[0];
+    const value = splitted[1];
+    cookieValues[key] = value;
+  });
+  req.cookies = cookieValues;
+  next();
 });
 // app.use(
 //   session({
@@ -41,45 +45,45 @@ app.use(( req, res, next) => {
 
 let chats = [];
 
-// try {
-//   const data = fs.readFileSync("./data/chats.json", "utf8");
-//   // parse JSON string to JSON object
-//   chats = JSON.parse(data);
-//   // print all chats of loaded to console
-//   chats.forEach((chat) => {
-//     console.log(
-//       `${chat.user}: ${chat.msg} at ${new Date(chat.timestamp).toUTCString()}`
-//     );
-//   });
-// } catch (err) {
-//   console.log(`Error reading file from disk: ${err}`);
-// }
+try {
+  const data = fs.readFileSync("./data/chats.json", "utf8");
+  // parse JSON string to JSON object
+  chats = JSON.parse(data);
+  // print all chats of loaded to console
+  chats.forEach((chat) => {
+    console.log(
+      `${chat.user}: ${chat.msg} at ${new Date(chat.timestamp).toUTCString()}`
+    );
+  });
+} catch (err) {
+  console.log(`Error reading file from disk: ${err}`);
+}
 
 app.post("/login", async (req, res, next) => {
 
-    const vm = req.body.userName;
-    console.log(vm);
+  const vm = req.body.userName;
+  console.log(vm);
   try {
     const response = await UserService.createUser(vm);
-    if(response.status) {
-        res.cookie('user', response.name);
-        //res.send(response.name);
-        res.redirect('/home');
-    }else{
-        res.redirect('/')
-        res.send('Sorry user name not correct')
+    if (response.status) {
+      res.cookie('user', response.name);
+      //res.send(response.name);
+      res.redirect('/home');
+    } else {
+      res.redirect('/')
+      res.send('Sorry user name not correct')
 
     }
   } catch (err) {
-      console.log(err);
-      return res.render('/login', 'unable to login');
+    console.log(err);
+    return res.render('/login', 'unable to login');
   }
 });
 
 // post logout
 app.post("/logout", async (req, res) => {
   try {
- 
+
     res.clearCookie("user");
     return res.redirect("/");
   } catch (error) {}
@@ -102,7 +106,7 @@ app.post("/sendChat", function (req, res, next) {
     timestamp: timestamp,
   });
 
-  //writeChatsToJsonFile("./data/chats.json", chats);
+  writeChatsToJsonFile("./data/chats.json", chats);
 
   console.log(chats);
   res.status(200).json(chats);
@@ -115,13 +119,13 @@ app.get("/deleteAllMessages", function (req, res) {
   res.json(chats);
 });
 
-// function writeChatsToJsonFile(fpath, data) {
-//   fs.writeFile(fpath, JSON.stringify(data, null, 4), (err) => {
-//     if (err) {
-//       console.log(`Error writing file: ${err}`);
-//     }
-//   });
-// }
+function writeChatsToJsonFile(fpath, data) {
+  fs.writeFile(fpath, JSON.stringify(data, null, 4), (err) => {
+    if (err) {
+      console.log(`Error writing file: ${err}`);
+    }
+  });
+}
 
 // file logic
 // function createFile(name) {
@@ -156,16 +160,16 @@ router.get("/home", function (req, res) {
   res.sendFile(path.join(__dirname + "/pages/home.html"));
 });
 
-router.get('/home.css',function(req,res){
-    res.sendFile(path.join(__dirname+'/home.css'));
+router.get('/home.css', function (req, res) {
+  res.sendFile(path.join(__dirname + '/home.css'));
 });
 
-router.get('/public/main.css',function(req,res){
-    res.sendFile(path.join(__dirname+'/'+req.url));
+router.get('/public/main.css', function (req, res) {
+  res.sendFile(path.join(__dirname + '/' + req.url));
 });
 
-router.get('/img/*.png',function(req,res){
-    res.sendFile(path.join(__dirname+'/'+req.url));
+router.get('/img/*.png', function (req, res) {
+  res.sendFile(path.join(__dirname + '/' + req.url));
 });
 
 app.listen(port, () => {
