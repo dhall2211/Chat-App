@@ -6,7 +6,8 @@ const router = express.Router();
 const fs = require("fs");
 const port = 3030; //listening to port 3000
 
-const UserService = require('./services/UserService')
+const UserService = require('./services/UserService');
+const dbConnect = require('./repository/databaseConnection');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -40,21 +41,22 @@ app.use(( req, res, next) => {
 
 let chats = [];
 
-try {
-  const data = fs.readFileSync("./data/chats.json", "utf8");
-  // parse JSON string to JSON object
-  chats = JSON.parse(data);
-  // print all chats of loaded to console
-  chats.forEach((chat) => {
-    console.log(
-      `${chat.user}: ${chat.msg} at ${new Date(chat.timestamp).toUTCString()}`
-    );
-  });
-} catch (err) {
-  console.log(`Error reading file from disk: ${err}`);
-}
+// try {
+//   const data = fs.readFileSync("./data/chats.json", "utf8");
+//   // parse JSON string to JSON object
+//   chats = JSON.parse(data);
+//   // print all chats of loaded to console
+//   chats.forEach((chat) => {
+//     console.log(
+//       `${chat.user}: ${chat.msg} at ${new Date(chat.timestamp).toUTCString()}`
+//     );
+//   });
+// } catch (err) {
+//   console.log(`Error reading file from disk: ${err}`);
+// }
 
 app.post("/login", async (req, res, next) => {
+
     const vm = req.body.name;
     console.log(vm);
   try {
@@ -105,7 +107,7 @@ app.post("/sendChat", function (req, res, next) {
     timestamp: timestamp,
   });
 
-  writeChatsToJsonFile("./data/chats.json", chats);
+  //writeChatsToJsonFile("./data/chats.json", chats);
 
   console.log(chats);
   res.status(200).json(chats);
@@ -118,13 +120,13 @@ app.get("/deleteAllMessages", function (req, res) {
   res.json(chats);
 });
 
-function writeChatsToJsonFile(fpath, data) {
-  fs.writeFile(fpath, JSON.stringify(data, null, 4), (err) => {
-    if (err) {
-      console.log(`Error writing file: ${err}`);
-    }
-  });
-}
+// function writeChatsToJsonFile(fpath, data) {
+//   fs.writeFile(fpath, JSON.stringify(data, null, 4), (err) => {
+//     if (err) {
+//       console.log(`Error writing file: ${err}`);
+//     }
+//   });
+// }
 
 // file logic
 // function createFile(name) {
