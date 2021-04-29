@@ -103,6 +103,18 @@
       setInterval(myTime(), 1000);
     }
 
+    app.get('/nologout', function(req, res, next){
+      if(req.session) {        
+          req.session.destroy (function (err) {
+            if (err) {
+              return next (err);
+          } else {
+            return res.redirect('/');
+          }
+        });
+      }
+    });
+
   </script>
 
   <div class="chat_room">
