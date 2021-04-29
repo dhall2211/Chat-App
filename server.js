@@ -55,7 +55,6 @@ conn.query('SELECT * FROM messages AS Messages', function(err, rows, fields) {
   
   conn.end();
 
-
 let chats = [];
 
 //populate array from json file
@@ -123,22 +122,17 @@ app.post("/sendMessage", function (req, res, next) {
   const msg = req.body.msg;
   const timestamp = Date.now();
 
-  conn.connect(function(err) {
-    if (err) throw err;
-    var sql = "INSERT INTO messages (user, msg, timestamp) VALUES ('Hans','Hallöle',1619706361615)";
-    conn.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log("1 record inserted, ID: " + result.insertId);
-    });
-  });
-
-//   conn.connect();
-
-// conn.query("INSERT INTO messages (user, msg, timestamp) VALUES ('Hans','Hallöle',1619706361615)", function(err, rows, fields) {
+//   conn.connect(function(err) {
 //     if (err) throw err;
-//     console.log(rows);
+//     var sql = "INSERT INTO messages (user, msg, timestamp) VALUES ('Hans','Hallöle',1619706361615)";
+//     conn.query(sql, function (err, result) {
+//       if (err) throw err;
+//       console.log("1 record inserted, ID: " + result.insertId);
+//     });
 //   });
-//   conn.end();
+
+//    conn.end();
+
 
 
 //   chats.push({
