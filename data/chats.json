@@ -1,57 +1,7 @@
 [
     {
-        "user": "Klaus",
-        "msg": "Hallo!",
-        "timestamp": 1619610116895
-    },
-    {
-        "user": "Sabrina",
-        "msg": "hi!",
-        "timestamp": 1619610117895
-    },
-    {
-        "user": "Dan",
-        "msg": "Hey Ho!",
-        "timestamp": 1619610118895
-    },
-    {
-        "user": "Klaus",
-        "msg": "Servus!",
-        "timestamp": 1619612695031
-    },
-    {
-        "user": "Klaus",
-        "msg": "Servus!",
-        "timestamp": 1619612805826
-    },
-    {
-        "user": "Hans",
-        "msg": "Grüß euch!",
-        "timestamp": 1619613915377
-    },
-    {
-        "user": "Marcella",
-        "msg": "Howdee!",
-        "timestamp": 1619614370963
-    },
-    {
-        "user": "Bokhee",
-        "msg": "Grüezi wohl!",
-        "timestamp": 1619614535637
-    },
-    {
-        "user": "Bokhee",
-        "msg": "Grüezi wohl!",
-        "timestamp": 1619614846338
-    },
-    {
-        "user": "Bokhee",
-        "msg": "Grüezi wohl!",
-        "timestamp": 1619614865632
-    },
-    {
-        "user": "Daniel",
-        "msg": "salve!",
-        "timestamp": 1619615535672
+        "user": "Gyula",
+        "msg": "Hossa!",
+        "timestamp": 1619706361615
     }
 ]
