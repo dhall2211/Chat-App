@@ -72,12 +72,7 @@ app.post('/sendChat', function (req, res, next) {
         'timestamp': timestamp
     })
 
-    //write chats to JSON file
-    fs.writeFile('./data/chats.json', JSON.stringify(chats, null, 4), (err) => {
-        if (err) {
-            console.log(`Error writing file: ${err}`);
-        }
-    });
+    writeChatsToJsonFile('./data/chats.json', chats);
 
     console.log(chats);
     res
@@ -89,11 +84,18 @@ app.post('/sendChat', function (req, res, next) {
 //delete all Chat messages
 app.get('/deleteAllMessages', function (req, res) {
     chats = [];
-    //todo: Write to file
+    writeChatsToJsonFile('./data/chats.json', chats);
     res.json(chats);
 }
 );
 
+function writeChatsToJsonFile(fpath, data) {
+    fs.writeFile(fpath, JSON.stringify(data, null, 4), (err) => {
+        if (err) {
+            console.log(`Error writing file: ${err}`);
+        }
+    });
+}
 
 // file logic
 // function createFile(name) {
